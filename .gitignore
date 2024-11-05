@@ -1,0 +1,6 @@
+.venv
+text
+wiki_morphs
+kowiki-latest-pages-articles.xml.bz2
+wiki.txt
+word2vec.model*
