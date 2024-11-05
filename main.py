@@ -2,9 +2,6 @@ from gensim.models import Word2Vec
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
-import matplotlib.font_manager as fm
-
-model = Word2Vec.load('word2vec.model')
 
 plt.rcParams['font.family'] = ['Malgun Gothic', 'DejaVu Sans', 'Arial', 'sans-serif']
 
@@ -34,5 +31,26 @@ def show_similar_words_tsnescatterplot(model, word, size):
     plt.ylim(Y.min() + 0.00005, Y.max() + 0.00005)
     plt.show()
 
-# Example usage
-show_similar_words_tsnescatterplot(model, '강아지', 100)
+
+def main():
+    import sys
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        print('Usage: python main.py <word> [size]')
+        sys.exit(1)
+        
+    word = sys.argv[1]
+    size = 100
+    if len(sys.argv) == 3:
+        size = int(sys.argv[2])
+        
+    model = Word2Vec.load('word2vec.model')
+    
+    try:
+        show_similar_words_tsnescatterplot(model, word, size)
+    except KeyError:
+        print(f'{word} is not in the vocabulary')
+        sys.exit(1)
+    
+
+if __name__ == '__main__':
+    main()
